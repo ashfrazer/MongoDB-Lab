@@ -18,6 +18,7 @@ public class Game implements KeyListener {
     private Boolean started = false;
     private JTextField nameField;
     public String playerName;
+    private boolean spacePressed = false;
 
     public Game() {
         // Connect to MongoDB
@@ -266,19 +267,22 @@ public class Game implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (remainingTime > 0 && remainingTime < 11) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE && !spacePressed) {
+                spacePressed = true;
                 score++;
             }
         }
     }
 
-    // I had to "implement" these
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            spacePressed = false;
+        }
     }
 
     public static void main(String[] args) {
